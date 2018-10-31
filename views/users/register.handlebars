@@ -1,0 +1,39 @@
+<div class="row">
+    <div class="col-md-6 mx-auto">
+        <div class="card card-body">
+            <img src="/img/anu-research.jpg" class="logo">
+            <h3 class="text-center">Account Register</h3>
+            <form action="/auth/student/signup" method="post">
+                <div class="form-group">
+                    <label for="name"  >Name</label>
+                    <input type="text" class="form-control" value="{{name}}" name="name" required>
+                </div>
+                <div class="form-group">
+                    <label for="email"  >Email</label>
+                    <input type="email" class="form-control" value="{{email}}" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" value="{{password}}" name="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="password2">Confirm Password</label>
+                    <input type="password" class="form-control" value="{{password2}}" name="password2" required>
+                </div>
+                <div class="form-group">
+                    <label for="department"  >Department</label>
+                    <input type="department" class="form-control" value="{{department}}" name="department" required>
+                </div>
+                <div class="form-group">
+                    <label for="year"  >Year</label>
+                    <input type="year" class="form-control" value="{{year}}" name="year" required>
+                </div>
+                <div class="form-group">
+                    <label for="uid"  >UID</label>
+                    <input type="uid" class="form-control" value="{{uid}}" name="uid" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>

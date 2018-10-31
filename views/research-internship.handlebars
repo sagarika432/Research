@@ -1,0 +1,19 @@
+{{#each ideas}}
+<div class="card card-body mb-2">
+   
+    <h4>{{this.name}}</h4>
+
+    {{!-- <a href='http://internshala.com/' + {{this.link}} >Click here to know more</a>
+  <p>{{this.link}}</p> --}}
+    {{!-- <a class="btn btn-dark btn-block mb-2" href="/ideas/edit/{{id}}">Mark as Important</a>
+    <form method ="post" action="/ideas/{{id}}?_method=DELETE">
+        <input type="hidden" name="_method" value="DELETE"> --}}
+        <a class="btn btn-dark btn-block"></a>
+        <a  href= {{this.link}} class="btn btn-danger btn-block"> Check More Details </a>
+
+    </form>
+</div>
+{{else}}
+<p>No Research Internships :(</p>
+
+{{/each}}
