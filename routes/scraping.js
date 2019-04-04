@@ -303,3 +303,7 @@ router.get('/projectsWithGrants',(req,res) => {
 router.get('/listOfProjectsWithGrants',(req,res)=>{
     res.render('floating-projects');
 })
+
+router.get('/completion',(req,res)=>{
+    res.render('completion-status');
+})
