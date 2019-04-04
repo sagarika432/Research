@@ -1,0 +1,29 @@
+
+{{#if projects}}
+<table class="striped">
+    <thead>
+        <tr>
+            <th>Agency</th>
+            <th>Scheme</th>
+            <th>Eligibility</th>
+            <th>Deadline</th>
+            <th>Duration</th>
+        </tr>
+    </thead>
+    <tbody>
+        {{#each projects}}
+        <tr>
+            <td>{{this.Agency}}</td>
+            <td><a href="{{this.href}}">{{this.Scheme}}</a></td>
+            <td>{{this.Eligibility}}</td>
+            <td>{{this.Deadline}}</td>
+            <td>{{this.Duration}}</td>
+        </tr>
+        {{/each}}
+    </tbody>
+</table>
+{{else}}
+
+<p>No Research Work With Grants :(</p>
+
+{{/if}}

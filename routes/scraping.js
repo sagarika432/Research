@@ -22,12 +22,13 @@ router.get('/github/:githandle',(req,res) => {
         //console.log(html);
         const $ = cheerio.load(html);
         const no_repositories = $('.UnderlineNav-body') ;
-        console.log(no_repositories.text());
+        const names = [ "Overview","Repositories","Projects","Stars","Followers","Following"]
+        // console.log(no_repositories.text());
       
                  $('.UnderlineNav-body a').each((i,el)=>{
                            // const item =$(el).text();
                             
-                            const key = $(el).attr('title');
+                            const key = names[i];
                             const x = $(el);
                             //const item1 = $(el).find('span').text();
                             
@@ -200,3 +201,105 @@ router.get('/research',(req,res) => {
  
     
 });
+
+
+router.get('/projectsWithGrants',(req,res) => {
+    url = 'https://www.ncbs.res.in/rdo/sponsor-grants';
+    var json = {
+    
+        result : []
+            
+        
+        };
+    request(url, (error, response, html) => {
+    if (!error && response.statusCode == 200) {
+
+
+        //console.log(html);
+        const $ = cheerio.load(html);
+       
+        var data = $('#block-system-main > div > div > div > table:nth-child(4) > tbody > tr:nth-child(3) > td:nth-child(1)').text();
+
+            for (var i =3 ; i<=12; i++) {
+                let object ={};
+                for(var j = 1 ; j<=5 ; j++) {
+
+                    let key;
+                    let val;
+
+                    if(j==1) {
+                        key = 'Agency';
+                        val = $(`#block-system-main > div > div > div > table:nth-child(4) > tbody > tr:nth-child(${i}) > td:nth-child(1)`).text().trimLeft();
+                        object[key] = val;
+                    } else if (j==2) {
+                        key='Scheme';
+                        val = $(`#block-system-main > div > div > div > table:nth-child(4) > tbody > tr:nth-child(${i}) > td:nth-child(2) > a`).text().trimLeft()
+                        object[key] = val;
+                        object ["href"] = $(`#block-system-main > div > div > div > table:nth-child(4) > tbody > tr:nth-child(${i}) > td:nth-child(2) > a`).attr('href');
+                    } else if (j==3) {
+                        key='Eligibility';
+                        val = $(`#block-system-main > div > div > div > table:nth-child(4) > tbody > tr:nth-child(${i}) > td:nth-child(3)`).text().trimLeft()
+                        object[key] = val;
+                    } else if (j==4) {
+                        key='Deadline';
+                        val = $(`#block-system-main > div > div > div > table:nth-child(4) > tbody > tr:nth-child(${i}) > td:nth-child(4) > p`).text().trimLeft()
+                        object[key] = val;
+                    }  else if (j==5) {
+                        key='Duration';
+                        val = $(`#block-system-main > div > div > div > table:nth-child(4) > tbody > tr:nth-child(${i}) > td:nth-child(5)`).text().trimLeft()
+                        object[key] = val;
+                    }
+                }
+                json.result.push(object);
+            }
+
+            for (var i =3 ; i<=12; i++) {
+                let object ={};
+                for(var j = 1 ; j<=5 ; j++) {
+
+                    let key;
+                    let val;
+
+                    if(j==1) {
+                        key = 'Agency';
+                        val = $(`#block-system-main > div > div > div > table:nth-child(10) > tbody > tr:nth-child(${i}) > td:nth-child(1)`).text().trimLeft();
+                        object[key] = val;
+                    } else if (j==2) {
+                        key='Scheme';
+                        val = $(`#block-system-main > div > div > div > table:nth-child(10) > tbody > tr:nth-child(${i}) > td:nth-child(2) > a`).text().trimLeft()
+                    
+                        object[key] = val;
+                        object ["href"] = $(`#block-system-main > div > div > div > table:nth-child(10) > tbody > tr:nth-child(${i}) > td:nth-child(2) > a`).attr('href');
+                    } else if (j==3) {
+                        key='Eligibility';
+                        val = $(`#block-system-main > div > div > div > table:nth-child(10) > tbody > tr:nth-child(${i}) > td:nth-child(3)`).text().trimLeft()
+                        object[key] = val;
+                    } else if (j==4) {
+                        key='Deadline';
+                        val = $(`#block-system-main > div > div > div > table:nth-child(10) > tbody > tr:nth-child(${i}) > td:nth-child(4) > p`).text().trimLeft()
+                        object[key] = val;
+                    }  else if (j==5) {
+                        key='Duration';
+                        val = $(`#block-system-main > div > div > div > table:nth-child(10) > tbody > tr:nth-child(${i}) > td:nth-child(5)`).text().trimLeft()
+                        object[key] = val;
+                    }
+                }
+                json.result.push(object);
+            }
+
+
+            res.render('research-projects',{
+                projects: json.result
+        
+            });
+        }
+                    
+    });
+ 
+    
+});
+
+
+router.get('/listOfProjectsWithGrants',(req,res)=>{
+    res.render('floating-projects');
+})
