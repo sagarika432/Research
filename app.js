@@ -16,6 +16,7 @@ const auth = require('./routes/auth');
 const scraping = require('./routes/scraping');
 const student = require('./routes/studentRoutes');
 const professor = require('./routes/professorRoutes');
+const project = require('./routes/projects');
 
 //Passport Config
 require('./config/passport')(passport);
@@ -62,6 +63,8 @@ require('./models/Student');
 const Student = mongoose.model('student');
 require('./models/Professor')
 const Professor = mongoose.model('professor');
+require('./models/Project')
+const Project = mongoose.model('project');
 
 //Handlebars middleware
 app.engine('handlebars', exphbs({
@@ -135,6 +138,7 @@ app.use('/auth',auth);
 app.use('/scraping',scraping);
 app.use('/student',student);
 app.use('/professor',professor)
+app.use('/project',project);
 
 
 const port = process.env.PORT || 3800 ;

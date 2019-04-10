@@ -1,0 +1,36 @@
+{{#if projects}}
+  <table class="striped">
+    <thead>
+      <tr>
+        <th>Project</th>
+        <th>Sponsor</th>
+        <th>Grants</th>
+        <th>Time Of Completion</th>
+        <th>Members</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+         {{#each projects}}
+        <tr>
+          <td>{{project}}</td>
+          <td>{{sponsor}}</td>
+          <td>{{grants}}</td>
+          <td>{{timeOfCompletion}}</td>
+          <td>
+              {{floatedBy.name}}
+          </td>
+          {{#if user.isStudent}}
+          <td>
+            <a class="btn left-align" href="/"><i class="fa fa-pencil"></i> Apply</a>
+          </td>
+          {{/if}}
+        </tr>
+        {{/each}}
+    </tbody>
+  </table>
+{{else}}
+
+<p>No Research Work With Grants :(</p>
+
+{{/if}}

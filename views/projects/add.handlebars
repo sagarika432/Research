@@ -1,0 +1,24 @@
+
+<div class="card card-body">
+    <h3> Research Work to be Floated </h3>
+
+    <form action="/professor/addProject" method="post">
+        <div class="form-group">
+            <label for="project">Project</label>
+            <input type="text" class="form-control" name="project" value= "{{project}}" >
+        </div>
+        <div class="form-group">
+            <label for="sponsor">Sponsor</label>
+            <input type="text" class="form-control" name="sponsor" value="{{sponsor}}" >
+        </div>
+         <div class="form-group">
+            <label for="grants">Grants</label>
+            <input type="text" class="form-control" name="grants" value="{{grants}}">
+        </div>
+        <div class="form-group">
+            <label for="timeOfCompletion">Time Of Completion</label>
+            <input type="text" class="form-control" name="timeOfCompletion" value="{{timeOfCompletion}}">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
