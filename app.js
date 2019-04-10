@@ -65,6 +65,8 @@ require('./models/Professor')
 const Professor = mongoose.model('professor');
 require('./models/Project')
 const Project = mongoose.model('project');
+require('./models/Application')
+const Application = mongoose.model('application');
 
 //Handlebars middleware
 app.engine('handlebars', exphbs({

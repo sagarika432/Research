@@ -15,6 +15,9 @@ const Professor = mongoose.model('professor');
 require('../models/Project')
 const Project = mongoose.model('project');
 
+require('../models/Application')
+const Application = mongoose.model('application');
+
 router.get('/', ensureAuthenticated, ensureProfessor, (req,res) => {
     const title = 'Research Activity'
     res.render('professor/professor-dashboard',{
@@ -58,5 +61,38 @@ router.get('/showProjects',ensureAuthenticated,(req,res) => {
             user: req.user
         });
     });
+})
+
+
+router.get('/apply/:id',ensureAuthenticated,ensureStudent, async (req,res) => {
+    const id = req.params.id;
+    const newApplication = new Application({
+        project: id,
+        student: req.user.id,
+        applicationSubmitted : true,
+        inReview: true,
+        approved: false,
+    });
+    try{
+        await newApplication.save();
+        res.redirect(`/professor/showApplication/${newApplication._id}`);
+    }catch(err) {
+        console.log(err);
+    }
+
+})
+
+router.get('/showApplication/:id',ensureAuthenticated,ensureStudent, async(req,res) => {
+    try{
+        const id = req.params.id
+        Application.findOne({ _id : id})
+        .populate('project student')
+        .then(application => {
+            console.log(application);
+            res.render('application',{application});
+        })
+    } catch(err) {
+        console.log(err)
+    }
 })
 module.exports = router;
