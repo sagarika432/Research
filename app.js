@@ -14,6 +14,9 @@ const app  =  express();
 //Load routes
 const auth = require('./routes/auth');
 const scraping = require('./routes/scraping');
+const student = require('./routes/studentRoutes');
+const professor = require('./routes/professorRoutes');
+
 //Passport Config
 require('./config/passport')(passport);
 
@@ -108,10 +111,16 @@ app.use(function(req,res,next){
 app.get('/' , (req,res) =>
 {
     if(req.user) console.log(req.user.email);
-    const title = 'Research Activity'
-    res.render('index',{
-        title: title,
-    });
+    if(req.user && req.user.isStudent) { 
+        res.redirect('/student') 
+    } else if (req.user && req.user.isProfessor) {
+        res.redirect('/professor')
+    } else {
+        const title = 'Research Activity'
+        res.render('index',{
+            title: title,
+        });
+    }
 });
 
 app.get('/about' , (req,res) =>{
@@ -124,6 +133,8 @@ app.get('/notifications' , (req,res) =>{
 //use routes
 app.use('/auth',auth);
 app.use('/scraping',scraping);
+app.use('/student',student);
+app.use('/professor',professor)
 
 
 const port = process.env.PORT || 3800 ;

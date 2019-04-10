@@ -4,6 +4,10 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const passport = require('passport');
 
+//Load helper
+
+const {ensureAuthenticated , ensureProfessor , ensureStudent} = require('../helpers/auth')
+
 
 //load  Student Model
 require('../models/Student');
