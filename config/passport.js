@@ -5,29 +5,50 @@ const bcrypt = require('bcryptjs');
 
 //Load Student model
 const Student = mongoose.model('student');
+const Professor = mongoose.model('professor');
 module.exports = function(passport) {
     passport.use(new LocalStrategy({
-        usernameField : 'email'},(email,password,done) => {
+        usernameField : 'email'},async(email,password,done) => {
             //Match User
-            Student.findOne({
-                email : email
-            }).then(user => {
-                if (!user)
-                {
+            // Student.findOne({
+            //     email : email
+            // }).then(user => {
+            //     if (!user)
+            //     {
+            //         return done(null,false,{message : 'No User found'});
+            //     }
+            //     //Match password
+            //     bcrypt.compare(password , user.password,(err , isMatch) => {
+            //         if(err) throw err;
+            //         if(isMatch){
+            //             return done(null,user,)
+            //         }else{
+            //             return done(null,false,{message : 'Password Incorrect !'});
+            //         }
+
+            //     })
+
+            // })
+            let user = await Student.findOne({email: email});
+            if(!user) {
+                user = await Professor.findOne({email: email });
+                if(!user) {
                     return done(null,false,{message : 'No User found'});
                 }
-                //Match password
-                bcrypt.compare(password , user.password,(err , isMatch) => {
-                    if(err) throw err;
-                    if(isMatch){
-                        return done(null,user,)
-                    }else{
-                        return done(null,false,{message : 'Password Incorrect !'});
-                    }
+            } 
 
-                })
+            bcrypt.compare(password , user.password,(err , isMatch) => {
+                if(err) throw err;
+                if(isMatch){
+                    return done(null,user,)
+                }else{
+                    return done(null,false,{message : 'Password Incorrect !'});
+                }
 
             })
+            
+            
+
 
         }));
 
@@ -36,10 +57,15 @@ module.exports = function(passport) {
         done(null, user.id);
       });
       
-      passport.deserializeUser(function(id, done) {
-        Student.findById(id, function(err, user) {
-          done(err, user);
-        });
+      passport.deserializeUser(async function(id, done) {
+          try {
+            let user = await Student.findById(id);
+            if(!user) user = await Professor.findById(id);
+            done(null,user)
+          } catch (err) {
+              done(err, null);
+          }
+       
       });
 
 }

@@ -57,7 +57,8 @@ mongoose.connect(mongoURI1,{
 //load  Student Model
 require('./models/Student');
 const Student = mongoose.model('student');
-
+require('./models/Professor')
+const Professor = mongoose.model('professor');
 
 //Handlebars middleware
 app.engine('handlebars', exphbs({
@@ -106,7 +107,7 @@ app.use(function(req,res,next){
 
 app.get('/' , (req,res) =>
 {
-    
+    if(req.user) console.log(req.user.email);
     const title = 'Research Activity'
     res.render('index',{
         title: title,

@@ -2,7 +2,7 @@ const mongoose =require('mongoose');
 const Schema = mongoose.Schema;
 
 //create  Schema
-const StudentSchema = new Schema ({
+const ProfessorSchema = new Schema ({
     email: {
         type : String,
         required : true
@@ -19,34 +19,21 @@ const StudentSchema = new Schema ({
         type : String,
         required : true
     },
-    year : {
-        type : String ,
-        required :true
-    },
-    uid : {
-        type : String ,
-        required :true
-    },
     date: {
         type :Date ,
         default :Date.now
     },
-    github: {
-        type : String,
-        required :true
-    },
     collegeName: {
         type: String,
-        required :true
     },
     isProfessor: {
         type:  Boolean,
-        default: false
+        default: true
     },
     isStudent: {
         type: Boolean,
-        default: true
+        default: false
     },
 
 });
-mongoose.model('student' , StudentSchema);
+mongoose.model('professor' , ProfessorSchema);

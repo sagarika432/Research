@@ -300,7 +300,7 @@ router.get('/projectsWithGrants',(req,res) => {
 });
 
 
-router.get('/listOfProjectsWithGrants',(req,res)=>{
+router.get('/FloatedProjects',(req,res)=>{
     res.render('floating-projects');
 })
 
