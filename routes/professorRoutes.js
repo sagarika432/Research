@@ -48,12 +48,14 @@ router.get('/addProject',ensureAuthenticated,ensureProfessor,(req,res) => {
     res.render('projects/add');
 })
 
-router.get('/showProjects',(req,res) => {
+router.get('/showProjects',ensureAuthenticated,(req,res) => {
     Project.find()
     .populate('floatedBy')
     .then(projects => {
+        console.log(req.user)
         res.render('projects/show',{
-            projects
+            projects,
+            user: req.user
         });
     });
 })
