@@ -55,12 +55,21 @@ ul.timeline > li:before {
 					<a href="#">In Review</a>
 					<a href="#" class="float-right">{{application.date}}</a>
 				</li>
-                {{/if}}
-                {{#if application.approved}}
-				<li>
-					<a href="#">Awesome Employers</a>
-					<a href="#" class="float-right">{{application.date}}</a>
+                {{else}}
+                <li>    
+					<a href="#">Reviewed</a>
 				</li>
+                    {{#if application.approved}}
+                    <li>
+                        <a href="#">Approved</a>
+                        <a href="#" class="float-right">{{application.date}}</a>
+                    </li>
+                    {{else}}
+                     <li>
+                        <a href="#">Rejected</a>
+                        <a href="#" class="float-right">{{application.date}}</a>
+                    </li>
+                    {{/if}}
                 {{/if}}
 			</ul>
 		</div>

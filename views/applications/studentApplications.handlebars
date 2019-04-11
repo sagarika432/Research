@@ -1,0 +1,15 @@
+{{#each applications}}
+<div class="card card-body mb-2">
+   <div class="card card-body">
+       <h4>Research Work Details</h4>
+       <p>Project: {{project.project}}</p>
+       <p>Sponsor: {{project.sponsor}}</p>
+       <p>Grants: {{project.grants}}</p>
+       <p>Time Of Completion: {{project.timeOfCompletion}}</p>
+   </div>
+    <a class="btn btn-primary blue btn-block mb-2" href="/professor/showApplication/{{_id}}">Check Status</a>
+</div>
+{{else}}
+<p>No Applications Listed :(</p>
+
+{{/each}}

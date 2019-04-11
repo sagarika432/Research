@@ -94,5 +94,36 @@ router.get('/showApplication/:id',ensureAuthenticated,ensureStudent, async(req,r
     } catch(err) {
         console.log(err)
     }
+});
+
+router.get('/getApplications',ensureAuthenticated,ensureProfessor,(req,res) => {
+    Application.find({ inReview: true }).populate({
+        path: 'project',
+        match: { floatedBy: req.user.id },
+    }).populate({path:'student'}).exec((err, applications) => {
+      res.render('applications/list',{
+          applications
+      })
+      // contains only tags where tagName is 'funny' or 'politics'
+    })
+});
+
+router.get('/application/approve/:id',ensureAuthenticated,ensureProfessor,async (req,res) => {
+    await Application.findOneAndUpdate({_id: req.params.id} , {approved:true , inReview : false} );
+    res.redirect('/professor/getApplications');
+})
+
+router.get('/application/reject/:id',ensureAuthenticated,ensureProfessor,async (req,res) => {
+    await Application.findOneAndUpdate({_id: req.params.id} , {approved:false , inReview : false} );
+    res.redirect('/professor/getApplications');
+})
+
+router.get('/student/myApplications',ensureAuthenticated,ensureStudent, async( req ,res ) => {
+    Application.find({ student : req.user.id })
+    .populate('project student')
+    .then(applications => {
+       // console.log(applications);
+        res.render('applications/studentApplications',{applications});
+    })
 })
 module.exports = router;
