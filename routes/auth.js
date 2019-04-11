@@ -68,6 +68,7 @@ router.post('/student/signup', (req,res) => {
             year : req.body.year,
             github: req.body.github,
             collegeName: req.body.collegeName,
+            resume: req.body.resume
         });
     }
     else{

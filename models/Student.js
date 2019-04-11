@@ -47,6 +47,9 @@ const StudentSchema = new Schema ({
         type: Boolean,
         default: true
     },
+    resume: {
+        type:String
+    }
 
 });
 mongoose.model('student' , StudentSchema);
