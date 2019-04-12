@@ -17,6 +17,7 @@ const scraping = require('./routes/scraping');
 const student = require('./routes/studentRoutes');
 const professor = require('./routes/professorRoutes');
 const project = require('./routes/projects');
+const ml = require('./routes/python');
 
 //Passport Config
 require('./config/passport')(passport);
@@ -141,6 +142,7 @@ app.use('/scraping',scraping);
 app.use('/student',student);
 app.use('/professor',professor)
 app.use('/project',project);
+app.use('/ml',ml);
 
 
 const port = process.env.PORT || 3800 ;

@@ -40,11 +40,12 @@ router.post('/addProject', ensureAuthenticated, ensureProfessor , async(req,res)
     try {
         await newProject.save();
         req.flash('success_msg','Project Floated');
-        res.redirect('/professor/showProjects');
+        res.redirect(`/ml/github/${req.user.name.replace(" ","%20")}/${req.body.project.replace(" ","%20")}`);
     } catch(err) {
         console.log(err);
 
     }
+
 })
 
 router.get('/addProject',ensureAuthenticated,ensureProfessor,(req,res) => {

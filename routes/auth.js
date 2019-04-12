@@ -87,7 +87,8 @@ router.post('/student/signup', (req,res) => {
             password : req.body.password,
             uid : req.body.uid,
             github: req.body.github,
-            collegeName: req.body.collegeName
+            collegeName: req.body.collegeName,
+            resume: req.body.resume
         });
         bcrypt.genSalt(10 , (err,salt) => {
             bcrypt.hash(newStudent.password,salt,(err,hash)=>{
