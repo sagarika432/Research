@@ -6,10 +6,10 @@
        <p>Email: {{student.email}}</p>
        <p>Department: {{student.department}}</p>
        <p>Year: {{student.year}}</p>
-       <p>Github: {{student.github}}</p>
+       <p>Github: <a href="https://github.com/{{student.github}}" target="_blank">{{student.name}}'s Github Profile</a> </p>
        <p>UID: {{student.UID}}</p>
        <p>College: {{student.collegeName}}</p>
-       <p>Resume: <a href="{{student.resume}}">{{student.name}}'s resume</a></p>
+       <p>Resume: <a href="{{student.resume}}" target="_blank">{{student.name}}'s resume</a></p>
    </div>
    <div class="card card-body">
        <h4>Research Work Details</h4>
